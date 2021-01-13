@@ -54,15 +54,11 @@ aims to minimize the MSE of this fitting operation.
 Note that the right part is a dot product between row i and
 column of matrices U and V respectively.
 
-With millions of dimensions, this can take quite long. But
-
-using our sparse nature, we only consider non-zero dimen-
+With millions of dimensions, this can take quite long. But using our sparse nature, we only consider non-zero dimen-
 sions. A simple but effective speedup.
 
 This is a supervised learning algorithm, actually, with train-
-ing, validation, and testing data. So we split our interaction
-
-data BY USER. This is critical, as we do not want part of one
+ing, validation, and testing data. So we split our interaction data BY USER. This is critical, as we do not want part of one
 user to be in another sample, as this would corrupt our test
 set. After training, we predict, and our results are excellent.
 When predicting the ratings of users the machine had never
