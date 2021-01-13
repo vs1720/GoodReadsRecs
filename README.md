@@ -1,16 +1,16 @@
 # GoodReadsRecs
 
-Our goal is to build a reccommendation system based on historical user ratings from the GoodReads dataset. All the data can be found: [here](https://sites.google.com/eng.ucsd.edu/ucsdbookgraph/home). 
+Our goal is to build a recommendation system based on historical user ratings from the GoodReads dataset. All the data can be found: [here](https://sites.google.com/eng.ucsd.edu/ucsdbookgraph/home). 
 
-From the review, book, and interaction data we derive 3 main mamtrices (see Preprocessing for exact implementation). 
+From the review, book, and interaction data we derive 3 main matrices (see Preprocessing for exact implementation). 
 
 * Book Data: This BxT matrix shows the number of people that gave a book i, tag j. 
 
 * Review Data: A TF_IDF matrix of the top 10 reviews for each book
 
-* Interaction Data: The most crticial one. This UxB matrix shows the rating user i gave to book j. While Goodreads does not allow 0 ratings, we set 0 ratings to 0.5 to make storage easier. 
+* Interaction Data: The most critical one. This UxB matrix shows the rating user i gave to book j. While Goodreads does not allow 0 ratings, we set 0 ratings to 0.5 to make storage easier. 
 
-All 3 matrices are enormous, hundreds of thousands of rows and columns so traditional storage is infeasibale and wasteful since data is sparse. So we use sparse matrices to mantain these. 
+All 3 matrices are enormous, hundreds of thousands of rows and columns so traditional storage is infeasible and wasteful since data is sparse. So we use sparse matrices to maintain these. 
 
 ## Collab Filtering
 
@@ -28,11 +28,9 @@ Two ways to go about this.
 
 This solution is by and far the best one of out the 3 frameworks we use. 
 
-SVD is the state-of-the-art non-deep solution to the recom-
-mendation problem. Netflix uses this exact system to make
+SVD is the state-of-the-art non-deep solution to the recommendation problem. Netflix uses this exact system to make
 
-recommendations, and we can leverage this powerful tech-
-nique to make great recommendations.
+recommendations, and we can leverage this powerful technique to make great recommendations.
 
 The first thing to do is to get our interaction data in the
 correct format. We are given a dataframe like so:
@@ -56,8 +54,7 @@ column of matrices U and V respectively.
 
 With millions of dimensions, this can take quite long. But using our sparse nature, we only consider non-zero dimensions. A simple but effective speedup.
 
-This is a supervised learning algorithm, actually, with train-
-ing, validation, and testing data. So we split our interaction data BY USER. This is critical, as we do not want part of one
+This is a supervised learning algorithm, actually, with training, validation, and testing data. So we split our interaction data BY USER. This is critical, as we do not want part of one
 user to be in another sample, as this would corrupt our test
 set. After training, we predict, and our results are excellent.
 When predicting the ratings of users the machine had never
@@ -67,6 +64,7 @@ a user will rate a book within 0.89 points.** With this, we can
 recommend books quite easily, as the rating user I will give
 book J is given by multiplying row I of U by column J of V
 scaled by the diagonal elements.
+
 We selected the parameters by using cross validation but had
 to limit the data we did it on to make this practical. We tested
 various n-factors and regularization terms and settled on reg:
