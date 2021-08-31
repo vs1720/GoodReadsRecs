@@ -28,9 +28,7 @@ Two ways to go about this.
 
 This solution is by and far the best one of out the 3 frameworks we use. 
 
-SVD is the state-of-the-art non-deep solution to the recommendation problem. Netflix uses this exact system to make
-
-recommendations, and we can leverage this powerful technique to make great recommendations.
+SVD is the state-of-the-art non-deep solution to the recommendation problem. Netflix uses this exact system to make recommendations, and we can leverage this powerful technique to make great recommendations.
 
 The first thing to do is to get our interaction data in the
 correct format. We are given a dataframe like so:
